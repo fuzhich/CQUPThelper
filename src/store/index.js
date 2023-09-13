@@ -3,7 +3,7 @@ import Vuex from 'vuex'
  
 Vue.use(Vuex)
 const state = {
-  isLogin:true,
+  isLogin:false,
   
 }
 

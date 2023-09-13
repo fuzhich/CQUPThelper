@@ -26,11 +26,20 @@ export default{
         }
     },
     methods:{
-        submit(){
+        async submit(){
             // console.log(this.user);
             // alert("login");
-            this.$router.push({path:"/index"});
-            this.$store.commit("updateLoginStatus",true);
+            // this.$router.push({path:"/index"});
+            // this.$store.commit("updateLoginStatus",true);
+            let result  = await this.$axios({
+                method:"post",
+                url:"http://localhost:8080/login",
+                params:{
+                    admin:this.user.admin,
+                    password:this.user.password,
+                }
+            })
+            console.log(result);
         }
     }
 }
