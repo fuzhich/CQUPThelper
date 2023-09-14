@@ -27,19 +27,16 @@ export default{
     },
     methods:{
         async submit(){
-            // console.log(this.user);
-            // alert("login");
-            // this.$router.push({path:"/index"});
-            // this.$store.commit("updateLoginStatus",true);
-            let result  = await this.$axios({
-                method:"post",
-                url:"http://localhost:8080/login",
-                params:{
-                    admin:this.user.admin,
-                    password:this.user.password,
-                }
-            })
-            console.log(result);
+           console.log(this.user);
+           let result  = await this.$request().post("/login", 
+           {admin:this.user.admin,
+            password:this.user.password})
+           console.log(result);
+           if(result.code==200){
+            alert("请求成功");
+            this.$router.push({path:"/index"});
+            this.$store.commit("updateLoginStatus",true);
+           }
         }
     }
 }
@@ -60,6 +57,7 @@ export default{
     position:absolute;
 }
 .input{
+    display: flex;
     /* border:1px black solid; */
     height:200px;
     width:210px;
@@ -74,13 +72,13 @@ export default{
     width:200px;
     border:none;
     outline: none;
-    /* background-color:rgba(127, 255, 212, 0); */
+    background-color:rgba(127, 255, 212, 0);
     line-height:20px;
     color:white;
 }
 input[type="submit"]{
     margin-top:34px;
-    margin-left:152px;
+    margin-left:150px;
     border:none;
     border-radius:50%;
     width:30px;

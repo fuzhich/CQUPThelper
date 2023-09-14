@@ -7,11 +7,12 @@ import store from "./store/index"
 import ElementUI from 'element-ui'
 import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
-
+import request from "./network/request"
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios
+Vue.prototype.$request = request
 
 
 import {

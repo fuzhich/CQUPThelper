@@ -18,7 +18,7 @@
                 
             </el-aside>
             <el-main>
-
+                <img :src="target" width="500px">
             </el-main>
         </el-container>
         
@@ -30,12 +30,12 @@ export default {
     data(){
         return{
             buses:[
-                {name:"一号线",id:"101"},
-                {name:"二号线",id:"102"},
-                {name:"三号线",id:"103"},
-               
+                {name:"一号线",id:"101",picUrl:""},
+                {name:"二号线",id:"102",picUrl:""},
+                {name:"三号线",id:"103",picUrl:""},
             ],
             id:this.$route.query.id,
+            
         }
     },
     methods:{
@@ -45,8 +45,27 @@ export default {
        
         
     },
-    created(){
- 
+    computed:{
+        target(){
+            let url;
+            for(var i of this.buses){
+                if(i.id == this.$route.query.id){
+                    url = i.picUrl;
+                }
+            }
+            return url;
+        }
+    },
+    async created(){
+        this.id = this.$route.query.id;
+        console.log(this.id);
+        let result  = await this.$request().get("/schoolbus");
+        if(result.code==200){
+            alert("请求发送成功")
+            for(var i of this.buses){
+                let re = result.result.data.filter(item => item.number===i.id)
+            }   i.picUrl = re[0].picUrl;
+        }
     }
 }
 </script>
