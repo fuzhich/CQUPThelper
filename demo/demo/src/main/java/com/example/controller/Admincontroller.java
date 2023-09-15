@@ -6,14 +6,13 @@ import com.example.pojo.Admin;
 import com.example.pojo.Login;
 import com.example.vo.Loginresult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController()
+@CrossOrigin(origins="http://localhost:8081", allowCredentials = "true", allowedHeaders = "*")
+
 public class Admincontroller {
 
     @Autowired
@@ -21,6 +20,7 @@ public class Admincontroller {
 
     @PostMapping("/login")
     public Loginresult login(@RequestBody Login login){
+      System.out.println(login);
         Loginresult result = new Loginresult();
         List<Admin> adminlist = adminmapper.list();
         adminlist.stream().forEach(admin_o->{

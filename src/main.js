@@ -7,12 +7,17 @@ import store from "./store/index"
 import ElementUI from 'element-ui'
 import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
-import request from "./network/request"
+
+// axios配置
+// axios.defaults.withCredentials = true; // 携带cookie
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // 判断是否为ajax请求
+axios.defaults.baseURL = "http://localhost:8080"
+axios.defaults.withCredentials = true;
+
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios
-Vue.prototype.$request = request
 
 
 import {

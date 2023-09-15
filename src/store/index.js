@@ -4,7 +4,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const state = {
   isLogin:false,
-  
+  baseUrl:"http://localhost:8080",
+  userId:"",
+  userInfo:{},
+
 }
 
 export default new Vuex.Store({
@@ -15,9 +18,7 @@ export default new Vuex.Store({
   },
   //里面定义方法，操作state方发
   mutations: {
-    updateLoginStatus(status){
-      this.state.isLogin=status;
-    } 
+    
   },
   // 操作异步操作mutation
   actions: {

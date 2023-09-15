@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <login v-if="!this.$store.state.isLogin"></login>
-    <!-- <index v-else/> -->
-    <router-view v-else></router-view>
+    
+    <router-view></router-view>
   </div>
 </template>
 

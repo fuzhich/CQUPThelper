@@ -4,13 +4,18 @@ import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
+
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push(location){
+//   return originalPush.call(this,location).catch(err=>err)
+// }
 export default new Router({
   mode:"history",
   routes: [
     
     {
       path:"/",
-      name:"login&index",
+      name:"login",
       component:()=>{return import("../components/login.vue")}
 
     },
