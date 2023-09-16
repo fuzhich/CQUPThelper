@@ -1,16 +1,19 @@
 <template>
     <div id="login">
         <img class="background" src="../../static/登录.jpg">
+        <div class="float"> 账号：5749163  密码：p2a8s7t5r14 </div>
         <div class="input">
             <!-- <input type="text" class="admin" v-model="user.admin"><br>
             <input type="password" class="password" v-model="user.password"><br> -->
             <input class="admin" type="text" v-model="user.admin"><br>
-            <input class="password" type="text" v-model="user.password"><br>
+            <input class="password" type="password" v-model="user.password"><br>
             <button class="submit" @click="submit">提交</button>
         </div>
         <div class="Info">
-            <h3>动态生成公告内容</h3>
-            {{ notice }}
+            <div class="single_info" v-for="(item,index) in notice" :key="item.id">
+                <h4>{{ item.msg }}</h4>    
+                <p>{{ item.updateTime | getDateTime }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -24,7 +27,7 @@ export default{
                 admin:"",
                 password:""
             },
-            notice:"",
+            notice:this.$store.state.notice,
         }
     },
     methods:{
@@ -60,14 +63,21 @@ export default{
             method:"get",
             url:"/notice",
             timeout:30000,
-            data:{
-                limit:1,
+            params:{
+                limit:4,
             }
         });
         if(re.data.code ==200){
-            this.$message("成功获取公告");
-            this.notice = re.data.result.data[0];
+            console.log(re);
+            this.notice = re.data.result.data;
+            this.$store.state.notice=re.data.result.data;
         }
+    },
+    filters:{
+        getDateTime(value) {
+	        return (new Date(value)).toLocaleDateString() + " " + (new Date(value)).toLocaleTimeString()
+        },
+
     }
    
 }
@@ -81,16 +91,21 @@ export default{
 }
 
 .background{
-    width:1350px;
-    height:610px;
+    width:100vw;
+    height:100vh;
+    min-width:1350px;
+    min-height:610px;
     z-index: -1;
     position:absolute;
+}
+.float{
+    position:absolute;
+    background:white;
 }
 .input ,.Info{
     position:absolute;
 }
 .input{
-    
     border:1px black solid;
     height:200px;
     width:210px;
@@ -127,5 +142,15 @@ button.submit{
     left:600px;
     top:200px;
     
+}
+.Info h4, .Info p{
+    display:inline;
+}
+.single_info{
+    height:30px;
+    line-height:30px;
+}
+.single_info p{
+    float:right;
 }
 </style>

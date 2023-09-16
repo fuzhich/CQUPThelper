@@ -6,7 +6,7 @@ public class Diningdata {
     public int id;
     public String diningname;
     public String windowname;
-    public URL picUrl;
+    public String picUrl;
     public Diningdata() {
     }
 

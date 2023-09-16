@@ -6,11 +6,14 @@
             <el-header height="70px">
               <div class="header">
             <h3 class="back" @click="back">&lt</h3>
+            <h2>{{ name }}</h2>
             </div>  
             </el-header>
             
             <el-main>
-
+                <div class="dishes" v-for="(item,index) in dishes">
+                {{ item.name }}&nbsp; {{ item.pricce }}元
+                </div>
             </el-main>
         </el-container>
         
@@ -22,18 +25,31 @@ export default {
     data(){
         return{
             diningId:this.$route.query.diningId,
-            windowId:this.$route.query.windowId,
+            windowId:this.$route.query.id,
+            name:"",
+            dishes:[],
         }
     },
     methods:{
         back(){
-            this.$router.push({path:"/dining"});
+            this.$router.push({path:"/dining",query:{id:this.diningId}});
         },
        
         
     },
-    created(){
- 
+    async created(){
+        console.log(this.$route.query);   
+        let result = await this.$axios({
+            method:"get",
+            timeout:30000,
+            url:"/window",
+            params:{
+                id:this.windowId
+            }
+        }) 
+        console.log(result);
+        this.name = result.data.result.data.name;
+        this.dishes = result.data.result.data.dishes;
     }
 }
 </script>
@@ -72,6 +88,11 @@ header.el-header{
     background-color:#E2FCE3;
     align-items: center;
     padding-left:0 !important;
+}
+.el-main{
+    width:80vw;
+    min-width:900px;
+    
 }
 .back{
     user-select: none;
@@ -120,5 +141,9 @@ header.el-header{
 a.router-link-exact-active{
     background:#E2FCE3;
 }
-
+.dishes{
+    display:inline-block;
+    width:200px;
+    margin-left:80px;
+}
 </style>

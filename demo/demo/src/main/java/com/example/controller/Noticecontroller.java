@@ -4,14 +4,13 @@ import com.example.mapper.Noticemapper;
 import com.example.pojo.Notice;
 import com.example.vo.Noticeresult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="http://localhost:8081", allowCredentials = "true", allowedHeaders = "*")
+
 @RequestMapping
 public class Noticecontroller {
     @Autowired
@@ -19,7 +18,8 @@ public class Noticecontroller {
 
     @GetMapping("/notice")
     public Noticeresult get(@RequestParam(defaultValue = "10") int limit){
-        List<Notice> noticelist=noticemapper.list();
+        System.out.println(limit);
+        List<Notice> noticelist=noticemapper.list(limit);
         Noticeresult result = new Noticeresult();
         result.code=200;
         result.result.setData(noticelist);

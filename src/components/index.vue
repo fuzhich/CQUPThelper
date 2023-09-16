@@ -13,8 +13,12 @@
                 </ul>
             </nav>
         </div>
-        <div>
-            <img class="notice" src="../../static/首页—公告栏.png" >
+        <div class="notice">
+            <!-- <img class="notice" src="../../static/首页—公告栏.png" > -->
+            <div class="single_info" v-for="(item,index) in notice" :key="item.id">
+                <h4>{{ item.msg }}</h4>    
+                <p>{{ item.updateTime | getDateTime }}</p>
+            </div>
         </div>
         
         
@@ -25,14 +29,21 @@ export default {
     name:"index",
     data(){
         return{
-
+            notice:this.$store.state.notice,
         }
     },
     methods:{
         logout(){
+            this.$store.state.userId="";
             this.$store.state.isLogin=false;
             this.$router.push({path:"/"});
         }
+    },
+    filters:{
+        getDateTime(value) {
+	        return (new Date(value)).toLocaleDateString() + " " + (new Date(value)).toLocaleTimeString()
+        },
+
     }
 }
 </script>
@@ -109,12 +120,30 @@ img.cqupt{
 a.active{
     color:red;
 }
-img.notice{
-   position:absolute;
-   width:500px;
-   z-index:10;
-   left:400px;
-   top:100px;
+div.notice{
+    box-sizing: border-box;
+    position:absolute;
+    height:400px;
+    width:550px;
+    z-index:10;
+    left:30vw;
+    top:100px;
+    background:url("../../static/首页—公告栏.png") ;
+    background-size:cover;
+    padding:60px 16px 0 88px;
+    
 }
+.single_info{
+    height:30px;
+    line-height:30px;
+}
+.single_info p, .single_info h4{
+    display: inline;
+    color:#385339;
+}
+.single_info p{
+    float:right;
+}
+
 
 </style>

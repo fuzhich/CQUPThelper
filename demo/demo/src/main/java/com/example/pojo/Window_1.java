@@ -5,7 +5,7 @@ import java.net.URL;
 public class Window_1 {
     public String name;
     public int id;
-    public URL picUrl;
+    public String picUrl;
 
     @Override
     public String toString() {

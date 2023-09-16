@@ -7,19 +7,25 @@
             <h3 class="back" @click="back">&lt</h3>
             </div>  
             </el-header>
-            <el-aside width="200px">
+            
+            <el-container>
+            <el-aside>
                 <ul class="nav-menu"> 
                     <li class="menu-item" v-for="(item,index) in dining" :key="index"
-                   >
-
-                    <router-link :to="'/dining?id='+item.id" exact>{{ item.name }}</router-link>   
+                        @click="change(item.id)">
+                    <router-link :to="'/dining?id='+item.id"  exact>{{ item.name }}</router-link>   
                     </li>
                 </ul>
                 
             </el-aside>
             <el-main>
-
-            </el-main>
+                <div class="windows" v-for="(item,index) in windows" :key="item.id">
+                    <img @click="goToWindow(item.id,id)" :src="item.picUrl" width="100px">
+                    <h3 @click="goToWindow(item.id,id)">{{ item.name }}</h3>
+                </div>
+            </el-main>    
+            </el-container>
+            
         </el-container>
         
     </div>
@@ -39,18 +45,56 @@ export default {
                 {name:"小食荟",id:"279901"},
             ],
             id:this.$route.query.id,
+            windows:[],
         }
     },
     methods:{
         back(){
             this.$router.push({path:"/index"});
         },
+        async change(val){
+            let result = await this.$axios({
+            method:"get",
+            timeout:30000,
+            url:"/dining",
+            params:{
+                id:val
+            }
+            });
+            // console.log(result.data.result.data.windows);
+            if(result.data.code==200){
+                this.$message("获取窗口成功");
+                this.windows = result.data.result.data.windows;
+            }else {
+                this.$message("获取窗口失败");
+            }
+        },
+        goToWindow(windowId,diningId){
+            this.$router.push({path:"/window",query:{id:windowId,diningId:this.id}});
+        }
        
         
     },
-    created(){
- 
-    }
+    async created(){
+        this.id =await this.$route.query.id;
+        let result = await this.$axios({
+            method:"get",
+            timeout:30000,
+            url:"/dining",
+            params:{
+                id:this.id
+            }
+        });
+        console.log(result.data.result.data.windows);
+        if(result.data.code==200){
+            this.$message("获取窗口成功");
+            this.windows = result.data.result.data.windows;
+        }else {
+            this.$message("获取窗口失败");
+        }
+        
+    },
+    
 }
 </script>
 <style>
@@ -89,6 +133,7 @@ header.el-header{
     align-items: center;
     padding-left:0;
 }
+
 .back{
     user-select: none;
     cursor: pointer;
@@ -97,6 +142,7 @@ header.el-header{
     color:#385339;
 }
 .el-aside{
+    width:200px;
     height:700px;
     border-right:#E2FCE3 10px solid;
     overflow: hidden;
@@ -136,5 +182,19 @@ header.el-header{
 a.router-link-exact-active{
     background:#E2FCE3;
 }
-
+.el-main{
+    width: calc(75vw);
+    min-width:700px;
+}
+div.windows{
+   display:inline-block;
+   margin:20px 20px;
+   width:100px;
+}
+.windows h3{
+    height:40px;
+}
+.windows h3 , .windows img{
+    cursor:pointer;
+}
 </style>

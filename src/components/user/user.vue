@@ -11,7 +11,11 @@
             <el-main>
                 <!-- <img src="../../../static/个人-信息面板.png" width="600px"> -->
                 <div class="info">
-                    <img src="../../../static/个人-四条信息.png">
+                    <!-- <img src="../../../static/个人-四条信息.png"> -->
+                    <h4>姓名：&nbsp{{ userInfo.name }}</h4>
+                    <h4>年纪：&nbsp{{ userInfo.grade }}</h4>
+                    <h4>性别：&nbsp{{ userInfo.gender }}</h4>
+                    <h4>学院：&nbsp{{ userInfo.institute }}</h4>
                 </div>
                 
             </el-main>
@@ -24,8 +28,7 @@ export default {
     name:"dining",
     data(){
         return{
-            person:{},
-            id:this.$route.query.id,
+            userInfo:{}
         }
     },
     methods:{
@@ -35,8 +38,18 @@ export default {
        
         
     },
-    created(){
- 
+    async created(){
+        console.log(this.$store.state.userId);
+        let result = await this.$axios({
+            method:"get",
+            url:"/user",
+            timeout:30000,
+            params:{
+                id:this.$store.state.userId
+            }
+        });
+        console.log(result);
+        this.userInfo = result.data.result;
     }
 }
 </script>
@@ -56,7 +69,7 @@ export default {
     height:calc(100vh);
     z-index:-1;
     min-width: 1000px;
-    min-height:400px;
+    min-height:500px;
 }
 .el-container{
     overflow:hidden;
@@ -76,6 +89,11 @@ header.el-header{
 }
 .el-main{
     overflow: hidden;
+    height:100%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .back{
     user-select: none;
@@ -86,17 +104,32 @@ header.el-header{
 }
 
 .info{
-    width:600px;
-    height:300px;
+    display:flex;
+    flex-flow: column;
+    box-sizing:border-box;
+    z-index:100;
+    position:absolute;
+    background:rgba(255, 255, 255, .5);
     border-radius:10px;
-    background:rgba(255, 255, 255, 0.627);
-    margin:30px 290px;
-    overflow: hidden;
+    width:25vw;
+    height:25vh;
+    min-width:300px;
+    min-height:300px;
+    top:200px;
+    padding-left:2vw;
+    justify-content: center;
+    align-items: left;
+    
 }
-.info img{
+.info h4{    
+    display: block;
+    font-size:larger;
+    margin: 2px 2px;
+}
+/* .info img{
     width:1000px;
     margin: -90px -180px ;
-}
+} */
 
 
 </style>

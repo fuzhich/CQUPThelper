@@ -7,13 +7,12 @@ import com.example.pojo.Notice;
 import com.example.vo.Noticeresult;
 import com.example.vo.Schoolbusresult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
+@CrossOrigin(origins="http://localhost:8081", allowCredentials = "true", allowedHeaders = "*")
+
 public class Schoolbuscontroller {
     @Autowired
     public Busmapper busmapper;

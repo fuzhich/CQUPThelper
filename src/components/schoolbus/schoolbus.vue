@@ -10,7 +10,7 @@
             <el-aside width="200px">
                 <ul class="nav-menu"> 
                     <li class="menu-item" v-for="(item,index) in buses" :key="index"
-                   >
+                   @click="change(item.id)">
 
                     <router-link :to="'/schoolbus?id='+item.id" exact>{{ item.name }}</router-link>   
                     </li>
@@ -35,6 +35,7 @@ export default {
                 {name:"三号线",id:"103",picUrl:""},
             ],
             id:this.$route.query.id,
+            target:""
             
         }
     },
@@ -42,7 +43,27 @@ export default {
         back(){
             this.$router.push({path:"/index"});
         },
-       
+       async change(val){
+        this.id = this.$route.query.id;
+      
+        let result  = await this.$axios({
+            method:"get",
+            url:"/schoolbus",
+            timeout:30000,
+            params:{
+                id:this.id
+            }
+        })
+        console.log(result);
+        if(result.code==200){
+           
+            for(var i of result.data.result.data){
+                if(i.number = this.id);
+                i.picUrl = this.target;   
+            } 
+            
+        }
+       }
         
     },
     computed:{
@@ -58,13 +79,23 @@ export default {
     },
     async created(){
         this.id = this.$route.query.id;
-        console.log(this.id);
-        let result  = await this.$request().get("/schoolbus");
+      
+        let result  = await this.$axios({
+            method:"get",
+            url:"/schoolbus",
+            timeout:30000,
+            params:{
+                id:this.id
+            }
+        })
+        console.log(result);
         if(result.code==200){
-            alert("请求发送成功")
-            for(var i of this.buses){
-                let re = result.result.data.filter(item => item.number===i.id)
-            }   i.picUrl = re[0].picUrl;
+           
+            for(var i of result.data.result.data){
+             if(i.number = this.id);
+             i.picUrl = this.target;   
+            } 
+            
         }
     }
 }

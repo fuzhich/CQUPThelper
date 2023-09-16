@@ -7,7 +7,7 @@ const state = {
   baseUrl:"http://localhost:8080",
   userId:"",
   userInfo:{},
-
+  notice:[],
 }
 
 export default new Vuex.Store({

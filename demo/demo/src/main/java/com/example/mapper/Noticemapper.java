@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface Noticemapper {
-    @Select("select * from notices")
-    public List<Notice> list();
+    @Select("select * from notices limit #{limit}")
+    public List<Notice> list(int limit);
 
 }
