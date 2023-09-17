@@ -4,5 +4,5 @@ import java.net.URL;
 
 public class Bus {
     public int number;
-    public URL picUrl;
+    public String picUrl;
 }

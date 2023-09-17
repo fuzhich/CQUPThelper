@@ -39,6 +39,7 @@ export default {
         
     },
     async created(){
+        console.log("this.id");
         console.log(this.$store.state.userId);
         let result = await this.$axios({
             method:"get",

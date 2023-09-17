@@ -7,7 +7,8 @@
             <h3 class="back" @click="back">&lt</h3>
             </div>  
             </el-header>
-            <el-aside width="200px">
+            <el-container>
+               <el-aside width="200px">
                 <ul class="nav-menu"> 
                     <li class="menu-item" v-for="(item,index) in buses" :key="index"
                    @click="change(item.id)">
@@ -17,9 +18,11 @@
                 </ul>
                 
             </el-aside>
-            <el-main>
-                <img :src="target" width="500px" class="bus-line">
-            </el-main>
+            <el-main class="pic">
+                <img :src="pic"  class="bus-line">
+            </el-main>  
+            </el-container>
+           
         </el-container>
         
     </div>
@@ -30,13 +33,14 @@ export default {
     data(){
         return{
             buses:[
-                {name:"一号线",id:"101",picUrl:""},
-                {name:"二号线",id:"102",picUrl:""},
-                {name:"三号线",id:"103",picUrl:""},
+                {name:"一号线",id:101,picUrl:""},
+                {name:"二号线",id:102,picUrl:""},
+                {name:"三号线",id:103,picUrl:""},
             ],
-            id:this.$route.query.id,
-            target:""
-            
+            id:Number(this.$route.query.id),
+            pic:"",
+            schoolbus:[],
+
         }
     },
     methods:{
@@ -44,26 +48,20 @@ export default {
             this.$router.push({path:"/index"});
         },
        async change(val){
-        this.id = this.$route.query.id;
-      
-        let result  = await this.$axios({
-            method:"get",
-            url:"/schoolbus",
-            timeout:30000,
-            params:{
-                id:this.id
-            }
-        })
-        console.log(result);
-        if(result.code==200){
+        this.id = val;       
            
-            for(var i of result.data.result.data){
-                if(i.number = this.id);
-                i.picUrl = this.target;   
-            } 
-            
+        for(var item of this.schoolbus){
+            if(item.number == this.$route.query.id){
+                this.pic = item.picUrl;
+                console.log("item.picUrl = "+item.picUrl);
+            }
+            // console.log(item);
+            // console.log(item.number + typeof(item.number));
         }
+         console.log(this.pic);   
+        
        }
+       
         
     },
     computed:{
@@ -71,7 +69,7 @@ export default {
             let url;
             for(var i of this.buses){
                 if(i.id == this.$route.query.id){
-                    url = i.picUrl;
+                    this.pic= i.picUrl;
                 }
             }
             return url;
@@ -89,13 +87,16 @@ export default {
             }
         })
         console.log(result);
-        if(result.code==200){
-           
-            for(var i of result.data.result.data){
-             if(i.number = this.id);
-             i.picUrl = this.target;   
-            } 
-            
+        if(result.data.code==200){
+           let index = 0;
+            this.schoolbus =  result.data.result.data;
+            console.log("this.schoolbus")
+            console.log(this.schoolbus);
+        }
+        for(var item of this.schoolbus){
+            if(item.number === this.id){
+                this.pic = item.picUrl;
+            }
         }
     }
 }
@@ -186,9 +187,18 @@ header.el-header{
 a.router-link-exact-active{
     background:#E2FCE3;
 }
-.bus-line{
-    width:14vw;
-    min-width:600px;
-    margin-left:10px;
+.el-main.pic{
+    width:100%;
+    height:100%;
+    min-width:900px;
+    height:500px;
 }
+.bus-line{
+   height:80%;
+   min-height:340px;
+    width:80%;
+    min-width:600px;
+    margin-left:200px;
+}
+
 </style>
