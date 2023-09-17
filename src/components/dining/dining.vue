@@ -37,7 +37,7 @@ export default {
         return{
             dining:[
                 {name:"延生食堂",id:"135587"},
-                {name:"樱花食堂",id:"829910"},
+                {name:"樱花食堂",id:"329910"},
                 {name:"莘莘食堂",id:"342891"},
                 {name:"千喜鹤",id:"398899"},
                 {name:"中心食堂",id:"796533"},
@@ -185,16 +185,25 @@ a.router-link-exact-active{
 .el-main{
     width: calc(75vw);
     min-width:700px;
+    display: flex;
 }
 div.windows{
+    /* border:#385339 1px solid; */
    display:inline-block;
    margin:20px 20px;
    width:100px;
+   height:150px;
 }
 .windows h3{
-    height:40px;
+   
+    font-size:16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .windows h3 , .windows img{
     cursor:pointer;
+}
+.window:hover{
+    overflow:visible;
 }
 </style>

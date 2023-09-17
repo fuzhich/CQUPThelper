@@ -18,7 +18,7 @@
                 
             </el-aside>
             <el-main>
-                <img :src="target" width="500px">
+                <img :src="target" width="500px" class="bus-line">
             </el-main>
         </el-container>
         
@@ -186,5 +186,9 @@ header.el-header{
 a.router-link-exact-active{
     background:#E2FCE3;
 }
-
+.bus-line{
+    width:14vw;
+    min-width:600px;
+    margin-left:10px;
+}
 </style>

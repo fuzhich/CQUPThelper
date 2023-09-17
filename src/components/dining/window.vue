@@ -11,7 +11,7 @@
             </el-header>
             
             <el-main>
-                <div class="dishes" v-for="(item,index) in dishes">
+                <div class="dishes" v-for="(item,index) in dishes" :key="index">
                 {{ item.name }}&nbsp; {{ item.pricce }}元
                 </div>
             </el-main>
@@ -65,6 +65,7 @@ export default {
     height:100vh;
     overflow:hidden;
 }
+/**背景图 */
 .background{
     position:absolute;
     width:calc(100vw);
@@ -73,6 +74,15 @@ export default {
     min-width: 1000px;
     min-height:400px;
 }
+/**----------------------头                          */
+.header{
+    display: inline-flex;
+    align-items:center;
+}
+.header h2,.header h3{
+    display: inline-block;
+}
+
 .el-container{
     overflow:hidden;
 }
@@ -89,6 +99,7 @@ header.el-header{
     align-items: center;
     padding-left:0 !important;
 }
+/**----------主体----------- */
 .el-main{
     width:80vw;
     min-width:900px;
