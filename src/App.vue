@@ -12,7 +12,12 @@ import index from "./components/index.vue"
 export default {
   name: 'App',
   components:{login,index},
-  
+  beforeDestroy(){
+    localStorage.clear();
+  } ,
+  created(){
+   
+  }
 }
 </script>
 

@@ -46,9 +46,10 @@ export default {
             url:"/user",
             timeout:30000,
             params:{
-                id:this.$store.state.userId
+                id:Number(sessionStorage.getItem("userId"))
             }
         });
+    
         console.log(result);
         this.userInfo = result.data.result;
     }

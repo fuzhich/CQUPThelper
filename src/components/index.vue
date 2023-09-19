@@ -25,15 +25,18 @@
     </div>
 </template>
 <script scoped>
+import {getNotice} from "../network/utils"
+
 export default {
     name:"index",
     data(){
         return{
-            notice:this.$store.state.notice,
+            
         }
     },
     methods:{
         logout(){
+            sessionStorage.removeItem("userId");
             this.$store.state.userId="";
             this.$store.state.isLogin=false;
             this.$router.push({path:"/"});
@@ -44,6 +47,16 @@ export default {
 	        return (new Date(value)).toLocaleDateString() + " " + (new Date(value)).toLocaleTimeString()
         },
 
+    },
+    computed:{
+        notice(){
+            return JSON.parse(sessionStorage.getItem("notice"));
+        }
+    },
+    created(){
+        if(!sessionStorage.getItem("userId")){
+            this.$message.error("登录异常，请退出重新登录");
+        }
     }
 }
 </script>

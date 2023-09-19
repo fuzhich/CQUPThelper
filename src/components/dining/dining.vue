@@ -1,7 +1,7 @@
 <template>
     <div id="root">
-        <img class="background" src="../../../static/首页-背景.png">
-        <el-container>
+          <img class="background" src="../../../static/首页-背景.png">
+            <el-container>
             <el-header height="70px">
               <div class="header">
             <h3 class="back" @click="back">&lt</h3>
@@ -18,7 +18,7 @@
                 </ul>
                 
             </el-aside>
-            <el-main>
+            <el-main class="dining">
                 <div class="windows" v-for="(item,index) in windows" :key="item.id">
                     <img @click="goToWindow(item.id,id)" :src="item.picUrl" width="100px">
                     <h3 @click="goToWindow(item.id,id)">{{ item.name }}</h3>
@@ -26,11 +26,17 @@
             </el-main>    
             </el-container>
             
-        </el-container>
+        </el-container>  
+        
+        
         
     </div>
 </template>
 <script>
+
+/** 滚轮样式*/
+import "./scroll.css"
+
 export default {
     name:"dining",
     data(){
@@ -97,6 +103,7 @@ export default {
     
 }
 </script>
+
 <style>
 *{
     padding:0;
@@ -187,15 +194,21 @@ a.router-link-exact-active{
     min-width:700px;
     display: flex;
 }
+.dining{
+    height:calc(100vh - 60px);
+    display:flex;
+    flex-flow:row wrap;
+    overflow-y: scroll;
+    align-content:flex-start;
+}
 div.windows{
     /* border:#385339 1px solid; */
    display:inline-block;
    margin:20px 20px;
-   width:100px;
-   height:150px;
+   width:20%;
+   height:20%;
 }
 .windows h3{
-   
     font-size:16px;
     text-overflow: ellipsis;
     overflow: hidden;

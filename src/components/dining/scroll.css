@@ -1,0 +1,23 @@
+/*.table-div { /* 设置div横向滚动样式 */
+ /* overflow-x: auto;
+} */
+/* 滚动条整体样式 */
+.el-main::-webkit-scrollbar { 
+  width: 10px; /* 高宽分别对应横竖滚动条的尺寸 */
+  height:100%;
+  background-color: #E2FCE3;
+}
+
+/* 滚动条内滑块的样式 */
+.el-main::-webkit-scrollbar-thumb { 
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.11);
+  background: #385339;
+}
+
+/* 滚动条里面轨道的样式 */
+.el-main::-webkit-scrollbar-track { 
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  background: #E2FCE3;
+}

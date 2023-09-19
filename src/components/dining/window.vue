@@ -12,7 +12,7 @@
             
             <el-main>
                 <div class="dishes" v-for="(item,index) in dishes" :key="index">
-                {{ item.name }}&nbsp; {{ item.pricce }}元
+               <h4>{{ item.name }}</h4> <p> {{ item.pricce }}元</p>
                 </div>
             </el-main>
         </el-container>
@@ -20,6 +20,9 @@
     </div>
 </template>
 <script>
+//滚动条样式
+import "./scroll.css"
+
 export default {
     name:"dining",
     data(){
@@ -63,13 +66,15 @@ export default {
 #root{
     width:100vw;
     height:100vh;
-    overflow:hidden;
+    min-width:700px;
+    min-height:500px;
+    overflow: hidden;
 }
 /**背景图 */
 .background{
     position:absolute;
-    width:calc(100vw);
-    height:calc(100vh) ;
+    width:100vw;
+    height:100vh;
     z-index:-1;
     min-width: 1000px;
     min-height:400px;
@@ -84,7 +89,8 @@ export default {
 }
 
 .el-container{
-    overflow:hidden;
+    width:100%;
+    height:100%;
 }
 header.el-header{
     z-index:10;
@@ -101,9 +107,15 @@ header.el-header{
 }
 /**----------主体----------- */
 .el-main{
-    width:80vw;
-    min-width:900px;
-    
+    width:100%;
+    overflow: scroll; 
+    height:calc(100vh - 70px);
+    min-height:430px;
+    box-sizing: border-box;
+    padding:0 4%;
+    display:flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
 }
 .back{
     user-select: none;
@@ -112,49 +124,23 @@ header.el-header{
     font-weight:300;
     color:#385339;
 }
-.el-aside{
-    height:700px;
-    border-right:#E2FCE3 10px solid;
-    overflow: hidden;
-}
-.nav-menu{
-    background-color:#38533900;
-  
-    padding:10px 0 0;
-}
-.menu-item{
-   user-select: none;
-   display:block;
-   background-color:#b2d3b300;
-   color:#385339;
-   font-size:24px;
-   line-height:38px;
-   font-family:宋体;
-   height:38px;
-   margin:10px 0;
-   border-top-right-radius:10px ;
-   border-bottom-right-radius: 10px;
-   cursor:pointer;
-}
-.menu-item:hover{
-    background:#E2FCE3;
-    width:140px;
-    padding-left:20px;
-}
-.menu-item a{
-    padding-left:20px;
-    display:block;
-    width:140px;
-    height:100%;
-    border-top-right-radius:10px ;
-    border-bottom-right-radius: 10px;
-}
-a.router-link-exact-active{
-    background:#E2FCE3;
-}
 .dishes{
+    display:inline-flex;
+    /* border:#385339 1px solid; */
+    height:3em;
+    line-height:3em;
+    width:20rem;
+    text-align: justify;
+    margin:0 2em;
+    padding:0;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.dishes>h4{
+    display: inline-block;    
+}
+.dishes>p{
     display:inline-block;
-    width:200px;
-    margin-left:80px;
 }
 </style>
