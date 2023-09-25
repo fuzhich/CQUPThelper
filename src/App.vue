@@ -24,6 +24,8 @@ export default {
 <style>
 #app{
   overflow: hidden;
+  padding:0;
+  margin:0;
 }
 router-view{
   overflow: hidden;

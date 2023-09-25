@@ -7,7 +7,7 @@ import store from "./store/index"
 import ElementUI from 'element-ui'
 import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
-
+import "./index.css"
 // axios配置
 // axios.defaults.withCredentials = true; // 携带cookie
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // 判断是否为ajax请求

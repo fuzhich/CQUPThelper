@@ -18,12 +18,19 @@
                 </ul>
                 
             </el-aside>
-            <el-main class="dining">
-                <div class="windows" v-for="(item,index) in windows" :key="item.id">
+            
+            <el-main class="dining" #default>
+                <Suspense>
+                    <div class="windows" v-for="(item,index) in windows" :key="item.id">
                     <img @click="goToWindow(item.id,id)" :src="item.picUrl" width="100px">
                     <h3 @click="goToWindow(item.id,id)">{{ item.name }}</h3>
                 </div>
-            </el-main>    
+                </Suspense>
+                
+                 </el-main>   
+            
+           
+           
             </el-container>
             
         </el-container>  
@@ -126,6 +133,8 @@ export default {
 }
 .el-container{
     overflow:hidden;
+    padding:0;
+    margin:0;
 }
 header.el-header{
     z-index:10;
@@ -149,10 +158,11 @@ header.el-header{
     color:#385339;
 }
 .el-aside{
-    width:200px;
+    width:210px;
     height:700px;
     border-right:#E2FCE3 10px solid;
     overflow: hidden;
+    /* border:#385339 1px solid; */
 }
 .nav-menu{
     background-color:#38533900;
@@ -203,15 +213,21 @@ a.router-link-exact-active{
 }
 div.windows{
     /* border:#385339 1px solid; */
+   box-sizing: border-box;
    display:inline-block;
    margin:20px 20px;
-   width:20%;
-   height:20%;
+   width:100px;
+   height:100px;
+   /* overflow: hidden; */
+   /* flex-flow:column wrap; */
 }
 .windows h3{
     font-size:16px;
     text-overflow: ellipsis;
     overflow: hidden;
+    height:auto;
+    height:20px;
+    width:100%;
 }
 .windows h3 , .windows img{
     cursor:pointer;

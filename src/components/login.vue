@@ -1,7 +1,7 @@
 <template>
     <div id="login">
         <img class="background" src="../../static/登录-登录背景.png">
-        <keep-alive>
+        <Suspense>
            <el-container>
             <el-aside>
                 <div>
@@ -25,7 +25,7 @@
                 </div>
             </el-main>
         </el-container> 
-        </keep-alive>
+        </Suspense>
         
     </div>
 </template>
@@ -93,7 +93,7 @@ export default{
 
 
 </script>
-<style>
+<style scoped>
 *{
     margin:0;
     padding:0;
@@ -149,17 +149,20 @@ export default{
     justify-content: center;
     align-items:center;
 }
-.input ,.Info{
-    position:absolute;
+.Info{
+    /* position:absolute; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 /**-----------输入框---输入账号密码 */
 .input{
     color:#385339;
     font-family: 华文新魏;
     font-weight:600;    
-    justify-content: center;
+    /* justify-content: center; */
 }
-.admin ,.password{
+.admin, .password{
     width:180px;
     height:26px;
     margin:5px 0;

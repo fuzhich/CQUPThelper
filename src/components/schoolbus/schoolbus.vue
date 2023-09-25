@@ -19,7 +19,10 @@
                 
             </el-aside>
             <el-main class="pic">
-                <img :src="pic"  class="bus-line">
+                <Suspense>
+                 <img :src="pic"  class="bus-line">   
+                </Suspense>
+                
             </el-main>  
             </el-container>
            
